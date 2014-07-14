@@ -11,6 +11,8 @@
     </sprites>
     <sprites name="Player">
       <sprite>sprites\spr_Player_Standing</sprite>
+      <sprite>sprites\spr_Player_Running</sprite>
+      <sprite>sprites\spr_Player_Jumping</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
