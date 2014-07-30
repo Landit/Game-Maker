@@ -96,7 +96,8 @@ else{
           <argument>
             <kind>1</kind>
             <string>//coools
-if(phy_position_y &lt; (obj_player.phy_position_y +32)){
+COLLISIONHEIGHT = 32;
+if(y &lt; (obj_player.y + COLLISIONHEIGHT)){
     draw_text(50,50,"Big weiners touched your face");
     //instance_destroy();
     show_debug_message("next to");

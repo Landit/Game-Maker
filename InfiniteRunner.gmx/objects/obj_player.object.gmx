@@ -30,10 +30,10 @@ start_y = y;
 
 phy_fixed_rotation = true;
 
-move_speed = 200;
+move_speed = 260;
 max_xspeed = 10;
 jumping = false;
-jump_force = -320;
+jump_force = -300;
 </string>
           </argument>
         </arguments>
@@ -126,34 +126,6 @@ physics_apply_force(x, y, move_speed, -40);
         </arguments>
       </action>
     </event>
-    <event eventtype="5" enumb="38">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>//First Jump
-if(place_meeting(x, y+1, obj_collision)){
-    jumping = true;
-    physics_apply_impulse(x, y, 0, jump_force);
-    show_debug_message("First Jump");
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="5" enumb="37">
       <action>
         <libid>1</libid>
@@ -202,6 +174,50 @@ phy_position_y = start_y;
         </arguments>
       </action>
     </event>
+    <event eventtype="9" enumb="38">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+var onGround = place_meeting(x, y+1, obj_collision);
+
+//Second jump - check needs to go first
+if(jumping == true &amp;&amp; !onGround) {
+    physics_apply_impulse(x, y, 0, jump_force);
+    show_debug_message("Second Jump");
+    jumping = false;
+    
+}
+
+//First jump
+if(onGround){
+    jumping = true; 
+    physics_apply_impulse(x, y, 0, jump_force);
+    show_debug_message("First Jump");
+}
+
+
+
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
   </events>
   <PhysicsObject>-1</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
@@ -211,7 +227,7 @@ phy_position_y = start_y;
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
   <PhysicsObjectLinearDamping>1</PhysicsObjectLinearDamping>
   <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
-  <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
+  <PhysicsObjectFriction>0.100000001490116</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints>
